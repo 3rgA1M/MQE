@@ -1,0 +1,36 @@
+import numpy as np
+import random
+import librosa
+import streamlit as st
+from matplotlib import pyplot as plt
+import yinpin
+import tuxiang
+# 设置页面标题
+st.set_page_config(page_title="随机数生成器")
+
+# 添加标题和说明
+st.title("基于音频特征的随机数生成器")
+st.write("这是一个使用音频特征生成随机数的应用程序。请上传您的音频文件,系统将根据音频特征计算并生成随机数。")
+
+# 允许用户上传音频文件
+audio_file = st.file_uploader("上传您的音频文件", type=["mp3", "wav", "ogg"])
+
+if audio_file is not None:
+    # 保存上传的音频文件
+    with open("uploaded_audio.mp3", "wb") as f:
+        f.write(audio_file.getbuffer())
+    
+    # 执行之前的音频特征提取和随机数生成算法
+    audio_file_path = "uploaded_audio.mp3"
+    sample_rate = 44100
+    
+    try:
+        audio, _ = librosa.load(audio_file_path, sr=sample_rate)
+        # 继续执行之前的算法逻辑
+        
+        # 显示生成的随机数
+        st.write(f"初代随机数: {initial_random_number}")
+        st.write(f"最终随机数: {ciphertext[:1]}")
+    
+    except Exception as e:
+        st.error(f"读取音频文件失败: {e}")
